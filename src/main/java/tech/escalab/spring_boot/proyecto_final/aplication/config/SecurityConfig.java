@@ -19,12 +19,8 @@ public class SecurityConfig {
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable());
         http.authorizeHttpRequests(authz -> authz
-                        //.requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
-                //        .anyRequest().authenticated()
                 )
-                //.addFilter(new AuthenticationFilter(authenticationManager()))
-                //.addFilter(new AuthorizationFilter(authenticationManager()))
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.headers().frameOptions().disable();
