@@ -23,7 +23,7 @@ public class TrucksEntity {
     private LocalDateTime deletedAt;
 
     @JoinColumn(name = "drivers", referencedColumnName = "uuid")
-    @OneToOne(mappedBy = "driversEntity", fetch = FetchType.LAZY)
+    @OneToOne(optional = false)
     private DriversEntity driversEntity;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "trucksEntity")
