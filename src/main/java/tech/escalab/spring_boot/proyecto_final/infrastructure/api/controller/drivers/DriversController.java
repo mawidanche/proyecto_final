@@ -11,7 +11,6 @@ import tech.escalab.spring_boot.proyecto_final.infrastructure.api.dto.drivers.re
 import tech.escalab.spring_boot.proyecto_final.infrastructure.api.mapper.drivers.DriversApiMapper;
 import tech.escalab.spring_boot.proyecto_final.infrastructure.api.swagger.drivers.DriversSwagger;
 
-import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -32,10 +31,6 @@ public class DriversController implements DriversSwagger {
        );
 
         return driversApiMapper.toResponse(savedDrivers);
-    }
-    @Override
-    public List<DriversResponseDto> findAll() {
-        return null;
     }
     @Override
     @GetMapping("/{uuid}")

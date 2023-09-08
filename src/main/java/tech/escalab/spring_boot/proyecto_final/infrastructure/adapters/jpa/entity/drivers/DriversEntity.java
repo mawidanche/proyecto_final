@@ -27,7 +27,7 @@ public class DriversEntity {
     private Boolean isDeleted = Boolean.FALSE;
     private LocalDateTime deletedAt;
 
-    @OneToOne(mappedBy = "driversEntity", fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "driversEntity", fetch = FetchType.LAZY)
     private TrucksEntity trucks;
 
 }
