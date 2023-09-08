@@ -12,29 +12,37 @@ import java.util.UUID;
 @AllArgsConstructor
 @Component
 public class DriversPortAdapter implements DriversPort {
-    private DriversJpaMapper driversJpaMapper;
-    private DriversRepositoryJpa driversRepositoryJpa;
+    //todo agregar control de excepciones de dominio
+    private DriversJpaMapper jpaMapper;
+    private DriversRepositoryJpa repositoryJpa;
 
     @Override
     public void deleteByUuid(UUID uuid) {
-
+        repositoryJpa.deleteById(uuid);
     }
 
     @Override
     public Drivers findByUuid(UUID uuid) {
-        return null;
+        var entity = repositoryJpa.findById(uuid)
+                //.orElseThrow(() -> new NotFoundException(DomainExceptionCode.PERSON_NOT_FOUND))
+                ;
+        return jpaMapper.toDomain(entity.get());
     }
 
     @Override
     public Drivers save(Drivers drivers) {
-        var savedDrivers = driversRepositoryJpa.save(
-                driversJpaMapper.toEntity(drivers)
+        var savedDrivers = repositoryJpa.save(
+                jpaMapper.toEntity(drivers)
         );
-        return driversJpaMapper.toDomain(savedDrivers);
+        return jpaMapper.toDomain(savedDrivers);
     }
 
     @Override
     public Drivers update(Drivers driversToUpdate, Drivers driversFound) {
-        return null;
+        jpaMapper.updateDomain(driversToUpdate, driversFound);
+        var entity = jpaMapper.toEntity(driversFound);
+        return jpaMapper.toDomain(
+                repositoryJpa.save(entity)
+        );
     }
 }
