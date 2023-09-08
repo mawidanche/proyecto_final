@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/v1/trucks")
+@RequestMapping("/api/v1/packages")
 public class PackagesController implements PackagesSwagger {
     private SavePackagesUseCase saveUseCase;
     private FindPackagesByUuidUseCase findByUuidUseCase;
