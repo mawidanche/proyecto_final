@@ -3,11 +3,9 @@ package tech.escalab.spring_boot.proyecto_final.infrastructure.api.controller.pa
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tech.escalab.spring_boot.proyecto_final.aplication.use_case.packages.*;
-import tech.escalab.spring_boot.proyecto_final.aplication.use_case.packages_products.SavePackagesProductsUseCase;
-import tech.escalab.spring_boot.proyecto_final.domain.model.packages_products.PackagesProducts;
+import tech.escalab.spring_boot.proyecto_final.domain.model.packages.Status;
 import tech.escalab.spring_boot.proyecto_final.infrastructure.api.dto.packages.request.PackagesRequestDto;
 import tech.escalab.spring_boot.proyecto_final.infrastructure.api.dto.packages.response.PackagesResponseDto;
-import tech.escalab.spring_boot.proyecto_final.infrastructure.api.dto.packages_products.request.PackagesProductsRequestDto;
 import tech.escalab.spring_boot.proyecto_final.infrastructure.api.mapper.packages.PackagesApiMapper;
 import tech.escalab.spring_boot.proyecto_final.infrastructure.api.swagger.packages.PackagesSwagger;
 
@@ -19,6 +17,7 @@ import java.util.UUID;
 public class PackagesController implements PackagesSwagger {
     private SavePackagesUseCase saveUseCase;
     private SavePackagesWithProductsUseCase saveWithProductsUseCase;
+    private UpdateStatusPackagesUseCase updateStatusPackagesUseCase;
     private FindPackagesByUuidUseCase findByUuidUseCase;
     private UpdatePackagesUseCase updateUseCase;
     private DeletePackagesUseCase deleteUseCase;
@@ -42,6 +41,13 @@ public class PackagesController implements PackagesSwagger {
 
         return null;
     }
+
+    @Override
+    @PutMapping("/{uuid}/status/{status}")
+    public void changeStatus(@PathVariable UUID uuid, @PathVariable String status) {
+        updateStatusPackagesUseCase.execute(uuid,status);
+    }
+
     @Override
     @GetMapping("/{uuid}")
     public PackagesResponseDto findById( @PathVariable UUID uuid) {

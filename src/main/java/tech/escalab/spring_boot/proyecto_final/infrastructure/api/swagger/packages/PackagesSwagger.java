@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestBody;
+import tech.escalab.spring_boot.proyecto_final.domain.model.packages.Status;
 import tech.escalab.spring_boot.proyecto_final.infrastructure.api.dto.packages.request.PackagesRequestDto;
 import tech.escalab.spring_boot.proyecto_final.infrastructure.api.dto.packages.response.PackagesResponseDto;
 
@@ -48,5 +49,8 @@ public interface PackagesSwagger {
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema(implementation = PackagesResponseDto.class), mediaType = "application/json") })
     })
     PackagesResponseDto saveWithProducts(@RequestBody PackagesRequestDto request);
+
+
+    void changeStatus(UUID uuid, String status);
 
 }
