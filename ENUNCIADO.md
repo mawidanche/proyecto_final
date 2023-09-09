@@ -1,6 +1,6 @@
 1. [X] Exponer CRUD para crear un driver
 2. [X] Exponer CRUD para crear un truck
-3. [ ] Exponer endpoint que permita registrar un paquetes con sus respectivos productos.
+3. [X] Exponer endpoint que permita registrar un paquetes con sus respectivos productos.
 4. [ ] Exponer endpoint que permita eliminar productos de un paquete si y solo si el paquete se encuentre en estado LOADED.
 5. [ ] Exponer endpoint que permita cambiar el estado de un paquete.
 6. [X] Adicionar Swagger a un controller.

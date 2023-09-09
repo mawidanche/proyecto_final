@@ -9,8 +9,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestBody;
 import tech.escalab.spring_boot.proyecto_final.infrastructure.api.dto.packages.request.PackagesRequestDto;
 import tech.escalab.spring_boot.proyecto_final.infrastructure.api.dto.packages.response.PackagesResponseDto;
-import tech.escalab.spring_boot.proyecto_final.infrastructure.api.dto.trucks.request.TrucksRequestDto;
-import tech.escalab.spring_boot.proyecto_final.infrastructure.api.dto.trucks.response.TrucksResponseDto;
 
 import java.util.UUID;
 
@@ -44,5 +42,11 @@ public interface PackagesSwagger {
     void update(UUID uui, PackagesRequestDto request);
 
     void delete(UUID uuid);
+
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = PackagesResponseDto.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema(implementation = PackagesResponseDto.class), mediaType = "application/json") })
+    })
+    PackagesResponseDto saveWithProducts(@RequestBody PackagesRequestDto request);
 
 }

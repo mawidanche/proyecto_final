@@ -2,14 +2,12 @@ package tech.escalab.spring_boot.proyecto_final.infrastructure.api.controller.pa
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tech.escalab.spring_boot.proyecto_final.aplication.use_case.packages.DeletePackagesUseCase;
-import tech.escalab.spring_boot.proyecto_final.aplication.use_case.packages.FindPackagesByUuidUseCase;
-import tech.escalab.spring_boot.proyecto_final.aplication.use_case.packages.SavePackagesUseCase;
-import tech.escalab.spring_boot.proyecto_final.aplication.use_case.packages.UpdatePackagesUseCase;
+import tech.escalab.spring_boot.proyecto_final.aplication.use_case.packages.*;
+import tech.escalab.spring_boot.proyecto_final.aplication.use_case.packages_products.SavePackagesProductsUseCase;
+import tech.escalab.spring_boot.proyecto_final.domain.model.packages_products.PackagesProducts;
 import tech.escalab.spring_boot.proyecto_final.infrastructure.api.dto.packages.request.PackagesRequestDto;
 import tech.escalab.spring_boot.proyecto_final.infrastructure.api.dto.packages.response.PackagesResponseDto;
-import tech.escalab.spring_boot.proyecto_final.infrastructure.api.dto.trucks.request.TrucksRequestDto;
-import tech.escalab.spring_boot.proyecto_final.infrastructure.api.dto.trucks.response.TrucksResponseDto;
+import tech.escalab.spring_boot.proyecto_final.infrastructure.api.dto.packages_products.request.PackagesProductsRequestDto;
 import tech.escalab.spring_boot.proyecto_final.infrastructure.api.mapper.packages.PackagesApiMapper;
 import tech.escalab.spring_boot.proyecto_final.infrastructure.api.swagger.packages.PackagesSwagger;
 
@@ -20,6 +18,7 @@ import java.util.UUID;
 @RequestMapping("/api/v1/packages")
 public class PackagesController implements PackagesSwagger {
     private SavePackagesUseCase saveUseCase;
+    private SavePackagesWithProductsUseCase saveWithProductsUseCase;
     private FindPackagesByUuidUseCase findByUuidUseCase;
     private UpdatePackagesUseCase updateUseCase;
     private DeletePackagesUseCase deleteUseCase;
@@ -33,6 +32,15 @@ public class PackagesController implements PackagesSwagger {
                apiMapper.toDomain(request)
        );
         return apiMapper.toResponse(saved);
+    }
+    @Override
+    @PostMapping("/products")
+    public PackagesResponseDto saveWithProducts(PackagesRequestDto request) {
+        var saved = saveWithProductsUseCase.execute(
+                apiMapper.toDomain(request)
+        );
+
+        return null;
     }
     @Override
     @GetMapping("/{uuid}")
@@ -51,6 +59,8 @@ public class PackagesController implements PackagesSwagger {
     public void delete( @PathVariable UUID uuid) {
         deleteUseCase.execute(uuid);
     }
+
+
 
 
 }
