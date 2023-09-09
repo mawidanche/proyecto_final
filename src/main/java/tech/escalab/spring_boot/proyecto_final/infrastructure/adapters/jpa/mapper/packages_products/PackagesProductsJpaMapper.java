@@ -15,6 +15,7 @@ import tech.escalab.spring_boot.proyecto_final.infrastructure.adapters.jpa.mappe
 public interface PackagesProductsJpaMapper {
     @Mapping(source = "packages", target = "packagesEntity")
     PackagesProductsEntity toEntity(PackagesProducts domain);
+    @Mapping(source = "packagesEntity", target = "packages")
     PackagesProducts toDomain(PackagesProductsEntity entity);
 
     void updateDomain(PackagesProducts toUpdate, @MappingTarget PackagesProducts found);

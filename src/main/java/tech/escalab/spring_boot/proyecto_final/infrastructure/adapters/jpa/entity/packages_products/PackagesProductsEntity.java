@@ -4,12 +4,16 @@ package tech.escalab.spring_boot.proyecto_final.infrastructure.adapters.jpa.enti
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import tech.escalab.spring_boot.proyecto_final.infrastructure.adapters.jpa.entity.packages.PackagesEntity;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 @Entity
 @Table(name = "PACKAGE_PRODUCTS")
+@SQLDelete(sql = "UPDATE PACKAGE_PRODUCTS SET is_deleted = true, deleted_at = now() WHERE uuid = ?")
+@Where(clause = "is_deleted is false")
 @Getter
 @Setter
 public class PackagesProductsEntity {
@@ -19,7 +23,7 @@ public class PackagesProductsEntity {
     private Double weight;
     private String sku;
     private Integer quantity;
-    private Boolean isDeleted;
+    private Boolean isDeleted= Boolean.FALSE;
     private LocalDateTime deletedAt;
 
     @JoinColumn(name = "packages", referencedColumnName = "uuid")
